@@ -1,0 +1,152 @@
+<meta charset="utf-8">
+<title>Présidence 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Archivo:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<div class="wrap">
+
+  <!-- ====================================================== ACCUEIL ==== -->
+  <section id="home">
+    <div class="hero">
+      <div class="tricolore"><i></i><i></i><i></i></div>
+      <span class="lab kicker">Simulateur de pouvoir · 2027 — 2032</span>
+      <h1>Présidence <span class="an">2027</span></h1>
+      <p>Vous venez d’être élu président de la République. Soixante mois, une décision par mois,
+        cinq jauges qui peuvent toutes vous faire tomber, et un pays qui n’attend qu’un prétexte.
+        Tenez cinq ans, puis affrontez les électeurs.</p>
+      <div class="btnrow" style="margin-top:22px">
+        <button class="btn" type="button" id="home-start">Prendre ses fonctions</button>
+        <button class="btn ghost small" type="button" id="theme">Thème clair / sombre</button>
+      </div>
+    </div>
+
+    <div id="home-reprise" class="box" style="max-width:620px;margin-bottom:22px" hidden>
+      <span class="lab">Partie en cours</span>
+      <p id="home-reprise-txt" style="margin:6px 0 12px"></p>
+      <button class="btn small" type="button" id="home-resume">Reprendre le mandat</button>
+    </div>
+
+    <div class="cards3" style="max-width:1000px">
+      <div class="box">
+        <span class="lab">Cinq jauges, cinq façons de tomber</span>
+        <p style="font-family:var(--f-body);color:var(--ink-2);margin:8px 0 0">Opinion, majorité à
+          l’Assemblée, climat social, finances publiques, crédibilité internationale. Chacune à zéro
+          déclenche une crise terminale. Deux fois, et le mandat s’arrête.</p>
+      </div>
+      <div class="box">
+        <span class="lab">Une vraie simulation derrière</span>
+        <p style="font-family:var(--f-body);color:var(--ink-2);margin:8px 0 0">Croissance, chômage,
+          inflation, déficit et dette évoluent chaque mois en fonction de vos choix. L’opinion suit
+          le vécu des gens, pas vos discours.</p>
+      </div>
+      <div class="box">
+        <span class="lab">Et des conséquences qui reviennent</span>
+        <p style="font-family:var(--f-body);color:var(--ink-2);margin:8px 0 0">Vos réformes
+          s’enchaînent sur plusieurs mois, vos promesses sont tenues ou trahies, les élections
+          intermédiaires vous notent, et le budget de l’État se négocie cinq fois.</p>
+      </div>
+    </div>
+
+    <div id="home-palmares" class="box" style="max-width:420px" hidden>
+      <span class="lab">Vos mandats précédents</span>
+      <div class="stats" id="home-palmares-list" style="margin-top:9px"></div>
+    </div>
+
+    <footer class="mentions">
+      Fiction satirique. Les partis, institutions, conseillers et personnalités de ce jeu sont
+      inventés ou désignés par leur fonction ; toute ressemblance avec des personnes réelles serait
+      fortuite. Les ordres de grandeur budgétaires et économiques sont plausibles, pas exacts : c’est
+      un jeu, pas un modèle de prévision.
+    </footer>
+  </section>
+
+  <!-- ================================================== LE PROGRAMME ==== -->
+  <section id="setup" hidden>
+    <div class="hero" style="padding-block:34px 10px">
+      <div class="tricolore"><i></i><i></i><i></i></div>
+      <span class="lab kicker">Mai 2027 · avant l’investiture</span>
+      <h1 style="font-size:clamp(32px,6vw,52px)">Sur quel programme avez-vous gagné ?</h1>
+      <p>Votre programme fixe vos forces, vos faiblesses, votre base électorale et la ligne que votre
+        camp attend de vous. Vous choisirez ensuite trois promesses de campagne : elles seront suivies
+        pendant cinq ans.</p>
+    </div>
+
+    <div class="cards3" id="setup-progs"></div>
+
+    <div id="setup-proms-wrap" hidden>
+      <div class="btnrow" style="margin-top:10px">
+        <span class="lab">Trois promesses de campagne</span>
+        <span class="lab num" id="setup-count">0/3</span>
+      </div>
+      <div class="plist" id="setup-proms"></div>
+    </div>
+
+    <div class="btnrow" style="margin-top:8px">
+      <button class="btn" type="button" id="setup-go" disabled>Entrer en fonction</button>
+      <button class="btn ghost small" type="button" id="setup-back">Retour</button>
+    </div>
+  </section>
+
+  <!-- ======================================================== LE JEU ==== -->
+  <section id="game" hidden>
+    <div class="topbar">
+      <div class="row">
+        <span class="date" id="top-date">juin 2027</span>
+        <span class="mois" id="top-mois"></span>
+        <span class="spacer"></span>
+        <span class="mini" id="top-mini"></span>
+        <button class="btn ghost small" type="button" id="theme2">Thème</button>
+        <button class="btn ghost small" type="button" id="restart">Abandonner</button>
+      </div>
+      <div class="prog"><i id="top-prog" style="width:0%"></i></div>
+    </div>
+
+    <div class="layout">
+      <aside class="panel left">
+        <div class="box"><span class="lab">Jauges du pouvoir</span>
+          <div class="gauges" id="p-gauges"></div>
+        </div>
+        <div class="box"><span class="lab">Le pays en chiffres</span>
+          <div class="stats" id="p-stats"></div>
+        </div>
+        <div class="box"><span class="lab">Rapports de force</span>
+          <div class="facs" id="p-facs"></div>
+        </div>
+      </aside>
+
+      <main class="stage" id="stage"></main>
+
+      <aside class="panel right">
+        <div class="box"><span class="lab">Popularité</span>
+          <div id="p-spark"></div>
+        </div>
+        <div class="box"><span class="lab">Dépêches</span>
+          <div class="feed" id="p-feed"></div>
+        </div>
+        <div class="box"><span class="lab">Agenda</span>
+          <div class="agenda" id="p-agenda"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/state.js"></script>
+<script src="js/content/programs.js"></script>
+<script src="js/content/cards-eco.js"></script>
+<script src="js/content/cards-soc.js"></script>
+<script src="js/content/cards-reg.js"></script>
+<script src="js/content/cards-ecol.js"></script>
+<script src="js/content/cards-eur.js"></script>
+<script src="js/content/cards-inst.js"></script>
+<script src="js/content/chains.js"></script>
+<script src="js/content/crises.js"></script>
+<script src="js/budget.js"></script>
+<script src="js/elections.js"></script>
+<script src="js/endings.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
