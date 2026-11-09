@@ -1,5 +1,7 @@
 # Présidence 2027
 
+**▶ Jouer : https://pataupe.github.io/presidence-2027/**
+
 Simulateur politique en une page. Vous êtes président de la République de juin 2027 à mai 2032 :
 soixante mois, une décision par mois, cinq jauges qui peuvent toutes vous faire tomber,
 un budget de l'État à arbitrer cinq fois, deux élections intermédiaires, puis la présidentielle.
