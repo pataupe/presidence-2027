@@ -118,8 +118,20 @@
   /* ----------------------------------------------------------- budget --- */
   function openBudget() {
     bud = { recette: 'stable', alloc: {}, total: 0 };
-    P.POSTES.forEach((p) => { bud.alloc[p.k] = P.POSTE_REF; });
-    bud.total = P.POSTE_REF * P.POSTES.length;
+    /* On ouvre toujours sur une répartition tenable : la reconduction de tous les
+       postes si l'enveloppe le permet, sinon le maximum qu'elle couvre. */
+    const env = P.budgetEnvelope(S, bud.recette);
+    const n = P.POSTES.length;
+    const base = Math.max(0, Math.min(P.POSTE_REF, Math.floor(env / n)));
+    let reste = Math.max(0, env - base * n);
+    let total = 0;
+    P.POSTES.forEach((p) => {
+      let v = base;
+      if (reste > 0 && v < P.POSTE_REF) { v++; reste--; }
+      bud.alloc[p.k] = v;
+      total += v;
+    });
+    bud.total = total;
     onSuite = null;
     UI.renderBudget(S, bud);
   }

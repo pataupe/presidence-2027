@@ -248,6 +248,12 @@ UI.renderBudget = function (S, state) {
 
     '<span class="lab" style="display:block;margin:18px 0 8px">2 · Dépenses</span>' +
     '<div class="budgetbar">' + budgetBarHTML(S, state) + '</div>' +
+    (info.env < P.POSTE_REF * P.POSTES.length
+      ? '<p class="brief" style="color:var(--rouge);font-size:14.5px;margin-top:12px">' +
+      'L’enveloppe ne couvre plus la reconduction des six postes (' +
+      (P.POSTE_REF * P.POSTES.length) + ' points). La charge de la dette et la conjoncture ' +
+      'ont mangé vos marges : il va falloir couper quelque part, ou aller chercher des recettes.</p>'
+      : '') +
     '<div class="sliders" id="bud-sl">' + P.POSTES.map((p) =>
       '<div class="sl"><div class="s1"><span><span class="n">' + p.n + '</span> ' +
       '<span class="d">' + p.d + '</span></span>' +
