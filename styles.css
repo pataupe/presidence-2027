@@ -140,6 +140,7 @@ a { color: var(--bleu) }
 }
 .btn:hover { filter: brightness(1.12) }
 .btn:active { transform: translateY(1px) }
+.btn:disabled { opacity: .45; cursor: not-allowed; filter: none }
 .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong) }
 .btn.ghost:hover { border-color: var(--ink); filter: none }
 .btn.small { font-size: 13px; padding: 7px 13px }
@@ -302,6 +303,14 @@ body::before {
 .budgetbar { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px }
 .budgetbar .big { font-family: var(--f-display); font-size: 26px; line-height: 1 }
 .budgetbar .big.over { color: var(--rouge) }
+.bud-warn { color: var(--rouge); font-size: 14.5px; margin-top: 12px }
+.budget-cta {
+  position: sticky; bottom: 0; z-index: 5;
+  background: var(--surface); border-top: 1px solid var(--line);
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+}
+.budget-cta .lab { text-transform: none; letter-spacing: 0; font-size: 12.5px; font-weight: 500 }
 
 /* ----------------------------------------------------------- les scrutins --- */
 .scores { display: grid; gap: 9px; margin-block: 16px }

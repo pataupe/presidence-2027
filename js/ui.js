@@ -226,6 +226,18 @@ UI.budgetBar = function (S, state) {
     go.disabled = over;
     go.textContent = over ? 'Enveloppe dépassée' : 'Adopter le budget';
   }
+  const recap = $('bud-recap');
+  if (recap) {
+    recap.textContent = over
+      ? (state.total - info.env) + ' points de trop — baissez un curseur'
+      : state.total + ' points répartis sur ' + info.env + ' · ' +
+      Math.max(0, info.env - state.total) + ' au désendettement · déficit ' + fmt(info.def, 1) + ' %';
+  }
+  const warn = $('bud-warn');
+  if (warn) warn.hidden = info.env >= P.POSTE_REF * P.POSTES.length;
+  document.querySelectorAll('[data-rec]').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset.rec === state.recette));
+  });
 };
 
 UI.renderBudget = function (S, state) {
@@ -248,12 +260,11 @@ UI.renderBudget = function (S, state) {
 
     '<span class="lab" style="display:block;margin:18px 0 8px">2 · Dépenses</span>' +
     '<div class="budgetbar">' + budgetBarHTML(S, state) + '</div>' +
-    (info.env < P.POSTE_REF * P.POSTES.length
-      ? '<p class="brief" style="color:var(--rouge);font-size:14.5px;margin-top:12px">' +
-      'L’enveloppe ne couvre plus la reconduction des six postes (' +
-      (P.POSTE_REF * P.POSTES.length) + ' points). La charge de la dette et la conjoncture ' +
-      'ont mangé vos marges : il va falloir couper quelque part, ou aller chercher des recettes.</p>'
-      : '') +
+    '<p class="brief bud-warn" id="bud-warn"' +
+    (info.env < P.POSTE_REF * P.POSTES.length ? '' : ' hidden') + '>' +
+    'L’enveloppe ne couvre plus la reconduction des six postes (' +
+    (P.POSTE_REF * P.POSTES.length) + ' points). La charge de la dette et la conjoncture ' +
+    'ont mangé vos marges : il va falloir couper quelque part, ou aller chercher des recettes.</p>' +
     '<div class="sliders" id="bud-sl">' + P.POSTES.map((p) =>
       '<div class="sl"><div class="s1"><span><span class="n">' + p.n + '</span> ' +
       '<span class="d">' + p.d + '</span></span>' +
@@ -263,8 +274,11 @@ UI.renderBudget = function (S, state) {
     '</div>' +
     '<p class="brief" style="font-size:14px">Niveau de reconduction : 6 points par poste. ' +
     'En dessous, le secteur se dégrade ; au-dessus, il s’améliore.</p>' +
-    '</div><div class="choices"><button class="btn" type="button" id="bud-go"' +
-    (over ? ' disabled' : '') + '>' + (over ? 'Enveloppe dépassée' : 'Adopter le budget') + '</button></div></article>';
+    '</div><div class="choices budget-cta">' +
+    '<button class="btn" type="button" id="bud-go"' + (over ? ' disabled' : '') + '>' +
+    (over ? 'Enveloppe dépassée' : 'Adopter le budget') + '</button>' +
+    '<span class="lab" id="bud-recap"></span></div></article>';
+  UI.budgetBar(S, state);
 };
 
 UI.renderBudgetResult = function (S, res) {

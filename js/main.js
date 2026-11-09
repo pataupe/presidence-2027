@@ -201,7 +201,7 @@
     if (t.id === 'setup-go') { const v = UI.setupValues(); startGame(v.prog, v.proms); return; }
     if (t.classList.contains('ch') && t.dataset.i != null) { choose(+t.dataset.i); return; }
     if (t.id === 'suite') { if (onSuite) onSuite(); return; }
-    if (t.dataset.rec) { bud.recette = t.dataset.rec; UI.renderBudget(S, bud); return; }
+    if (t.dataset.rec) { bud.recette = t.dataset.rec; UI.budgetBar(S, bud); return; }
     if (t.id === 'bud-go') { budgetDone(); return; }
     if (t.dataset.fin) { presidentielle(t.dataset.fin); return; }
     if (t.id === 'theme' || t.id === 'theme2') {
